@@ -1,0 +1,32 @@
+name: 'Build Angular GitHub Actions'
+branding:
+  icon: 'terminal'
+  color: 'orange'
+inputs:
+  workspace:
+    description: 'Relative path under $GITHUB_WORKSPACE to place the project'
+    required: false
+    default: .
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Build Project 
+      run: |
+        cd ${{ inputs.workspace }}
+        npm ci
+        npm run build:${{ github.ref_name }}
+      shell: bash
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dist
+        path: ${{ inputs.workspace }}/dist
