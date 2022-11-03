@@ -25,8 +25,9 @@ runs:
     - name: Build Project 
       run: |
         cd ${{ inputs.workspace }}
+        export GITHUB_EVENT_NAME=${{ github.event_name }}
         npm ci
-        if ["${{ github.event_name }}" == "pull_request"]; then
+        if [$GITHUB_EVENT_NAME == "pull_request"]; then
           npm run build:${{ github.base_ref }}
         else
           npm run build:${{ github.ref_name }}
