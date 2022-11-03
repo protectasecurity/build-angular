@@ -26,7 +26,11 @@ runs:
       run: |
         cd ${{ inputs.workspace }}
         npm ci
-        npm run build:${{ github.ref_name }}
+        if ["${{ github.event_name }}" == "pull_request"]; then
+          npm run build:${{ github.base_ref }}
+        else
+          npm run build:${{ github.ref_name }}
+        fi  
       shell: bash
 
     - name: Upload Artifact
