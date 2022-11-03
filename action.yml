@@ -39,6 +39,7 @@ runs:
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
+      if: ${{ github.event_name == 'push'}}
       with:
         name: dist
         path: ${{ inputs.workspace }}/dist
