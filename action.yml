@@ -3,6 +3,10 @@ branding:
   icon: 'terminal'
   color: 'orange'
 inputs:
+  node-version:
+    description: 'NodeJS version to use'
+    required: false
+    default: 16
   workspace:
     description: 'Relative path under $GITHUB_WORKSPACE to place the project'
     required: false
@@ -16,7 +20,7 @@ runs:
     - name: Setup NodeJS
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: ${{ inputs.node-version }}
 
     - name: Build Project 
       run: |

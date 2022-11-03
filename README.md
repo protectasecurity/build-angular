@@ -18,6 +18,7 @@ Output Artifact: dist
 
 ## Inputs
 
+- `node-version` **Optional** Node JS version to use
 - `workspace` **Optional** Relative path under $GITHUB_WORKSPACE to place the project
 
 ## Authors
